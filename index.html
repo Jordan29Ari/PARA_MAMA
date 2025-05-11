@@ -1,66 +1,86 @@
-<
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carta para Mamá</title>
   <style>
     body {
-      margin: 0;
       font-family: 'Georgia', serif;
-      background: #f9f3ee;
+      background-color: #f9f3ee;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      overflow: hidden;
+    }
+
+    .loading-screen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      z-index: 999;
+      position: absolute;
+      opacity: 1;
+      transition: opacity 1s;
+    }
+
+    .loading-screen.hide {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .envelope {
-      width: 300px;
-      height: 200px;
-      background: #d94f4f;
-      border-radius: 10px;
+      width: 250px;
+      height: 160px;
+      background-color: #d94f4f;
       position: relative;
       cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      transition: transform 0.4s;
+      border-radius: 12px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      animation: open-envelope 3s ease-out forwards;
     }
 
     .envelope::before {
       content: '';
       position: absolute;
-      top: -60px;
+      top: -40px;
       left: 0;
       width: 0;
       height: 0;
-      border-left: 150px solid transparent;
-      border-right: 150px solid transparent;
-      border-bottom: 60px solid #d94f4f;
-      border-radius: 0 0 10px 10px;
+      border-left: 125px solid transparent;
+      border-right: 125px solid transparent;
+      border-bottom: 40px solid #d94f4f;
+      border-radius: 0 0 12px 12px;
     }
 
     .letter {
+      width: 100%;
+      height: 100%;
+      background-color: #fff8f0;
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: #fff8f0;
+      border-radius: 12px;
       padding: 20px;
       box-sizing: border-box;
-      transform: translateY(100%);
-      transition: transform 0.6s;
-      border-radius: 10px;
-      overflow-y: auto;
+      transform: scale(0);
+      transform-origin: top;
+      transition: transform 1s ease;
     }
 
-    .envelope.open .letter {
-      transform: translateY(0);
+    .letter.open {
+      transform: scale(1);
     }
 
     .carta-contenido h1 {
-      color: #d94f4f;
       text-align: center;
+      color: #d94f4f;
       margin-bottom: 20px;
     }
 
@@ -75,45 +95,51 @@
       font-style: italic;
     }
 
-    @media (max-width: 400px) {
-      .envelope {
-        width: 90%;
-        height: 180px;
-      }
-      .envelope::before {
-        border-left: 45% solid transparent;
-        border-right: 45% solid transparent;
-        border-bottom: 60px solid #d94f4f;
-      }
+    @keyframes open-envelope {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
     }
+
   </style>
 </head>
 <body>
 
-  <div class="envelope" onclick="abrirCarta()">
-    <div class="letter">
-      <div class="carta-contenido">
-        <h1>Querida Mamá</h1>
-        <p>
-          Hoy quiero tomar un momento para decirte cuánto te amo y lo agradecido que estoy por todo lo que haces por mí.
-          Eres mi ejemplo de amor, fortaleza y sabiduría. Gracias por estar siempre a mi lado, por tu paciencia infinita,
-          y por tu sonrisa que siempre ilumina mis días.
-        </p>
-        <p>
-          Esta carta es solo un pequeño gesto para recordarte que eres muy especial para mí. No hay palabras suficientes
-          para expresar todo lo que siento por ti.
-        </p>
-        <p class="firma">
-          Con todo mi amor,<br>
-          [Tu Nombre]
-        </p>
+  <!-- Pantalla de carga -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="envelope" onclick="abrirCarta()">
+      <div class="letter">
+        <div class="carta-contenido">
+          <h1>Querida Mamá</h1>
+          <p>
+            Hoy quiero tomar un momento para decirte cuánto te amo y lo agradecido que estoy por todo lo que haces por mí.
+            Eres mi ejemplo de amor, fortaleza y sabiduría. Gracias por estar siempre a mi lado, por tu paciencia infinita,
+            y por tu sonrisa que siempre ilumina mis días.
+          </p>
+          <p>
+            Esta carta es solo un pequeño gesto para recordarte que eres muy especial para mí. No hay palabras suficientes
+            para expresar todo lo que siento por ti.
+          </p>
+          <p class="firma">
+            Con todo mi amor,<br>
+            [Tu Nombre]
+          </p>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
+    // Función para simular la carga y abrir la carta
+    window.onload = function() {
+      setTimeout(function() {
+        document.getElementById('loadingScreen').classList.add('hide');
+      }, 3000); // La carga dura 3 segundos
+    }
+
+    // Función para abrir la carta cuando se hace clic en el sobre
     function abrirCarta() {
-      document.querySelector('.envelope').classList.toggle('open');
+      document.querySelector('.letter').classList.add('open');
     }
   </script>
 
