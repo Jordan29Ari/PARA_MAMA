@@ -1,54 +1,121 @@
-<!DOCTYPE html>
+<
+   <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Carta para mi Mamá</title>
+  <title>Carta para Mamá</title>
   <style>
     body {
+      margin: 0;
       font-family: 'Georgia', serif;
-      background-color: #fff8f0;
-      color: #333;
-      margin: 40px;
+      background: #f9f3ee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    .carta {
-      max-width: 600px;
-      margin: auto;
-      padding: 30px;
-      background-color: #ffe9e3;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+    .envelope {
+      width: 300px;
+      height: 200px;
+      background: #d94f4f;
+      border-radius: 10px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.4s;
     }
-    h1 {
-      text-align: center;
+
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 150px solid transparent;
+      border-right: 150px solid transparent;
+      border-bottom: 60px solid #d94f4f;
+      border-radius: 0 0 10px 10px;
+    }
+
+    .letter {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff8f0;
+      padding: 20px;
+      box-sizing: border-box;
+      transform: translateY(100%);
+      transition: transform 0.6s;
+      border-radius: 10px;
+      overflow-y: auto;
+    }
+
+    .envelope.open .letter {
+      transform: translateY(0);
+    }
+
+    .carta-contenido h1 {
       color: #d94f4f;
+      text-align: center;
+      margin-bottom: 20px;
     }
-    p {
-      font-size: 18px;
+
+    .carta-contenido p {
+      font-size: 16px;
       line-height: 1.6;
     }
+
     .firma {
       text-align: right;
-      margin-top: 40px;
+      margin-top: 20px;
       font-style: italic;
+    }
+
+    @media (max-width: 400px) {
+      .envelope {
+        width: 90%;
+        height: 180px;
+      }
+      .envelope::before {
+        border-left: 45% solid transparent;
+        border-right: 45% solid transparent;
+        border-bottom: 60px solid #d94f4f;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="carta">
-    <h1>Querida Mamá</h1>
-    <p>
-      Hoy quiero tomar un momento para decirte cuánto te amo y lo agradecido que estoy por todo lo que haces por mí.
-      Eres mi ejemplo de amor, fortaleza y sabiduría. Gracias por estar siempre a mi lado, por tu paciencia infinita,
-      y por tu sonrisa que siempre ilumina mis días.
-    </p>
-    <p>
-      Esta carta es solo un pequeño gesto para recordarte que eres muy especial para mí. No hay palabras suficientes
-      para expresar todo lo que siento por ti.
-    </p>
-    <p class="firma">
-      Con todo mi amor,<br>
-      [Tu Nombre]
-    </p>
+
+  <div class="envelope" onclick="abrirCarta()">
+    <div class="letter">
+      <div class="carta-contenido">
+        <h1>Querida Mamá</h1>
+        <p>
+          Hoy quiero tomar un momento para decirte cuánto te amo y lo agradecido que estoy por todo lo que haces por mí.
+          Eres mi ejemplo de amor, fortaleza y sabiduría. Gracias por estar siempre a mi lado, por tu paciencia infinita,
+          y por tu sonrisa que siempre ilumina mis días.
+        </p>
+        <p>
+          Esta carta es solo un pequeño gesto para recordarte que eres muy especial para mí. No hay palabras suficientes
+          para expresar todo lo que siento por ti.
+        </p>
+        <p class="firma">
+          Con todo mi amor,<br>
+          [Tu Nombre]
+        </p>
+      </div>
+    </div>
   </div>
+
+  <script>
+    function abrirCarta() {
+      document.querySelector('.envelope').classList.toggle('open');
+    }
+  </script>
+
 </body>
 </html>
