@@ -43,7 +43,7 @@
       cursor: pointer;
       border-radius: 12px;
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-      animation: open-envelope 3s ease-out forwards;
+      transition: all 1s ease;
     }
 
     .envelope::before {
@@ -72,10 +72,12 @@
       transform: scale(0);
       transform-origin: top;
       transition: transform 1s ease;
+      visibility: hidden;
     }
 
     .letter.open {
       transform: scale(1);
+      visibility: visible;
     }
 
     .carta-contenido h1 {
@@ -108,7 +110,7 @@
   <!-- Pantalla de carga -->
   <div class="loading-screen" id="loadingScreen">
     <div class="envelope" onclick="abrirCarta()">
-      <div class="letter">
+      <div class="letter" id="letter">
         <div class="carta-contenido">
           <h1>Querida Mamá</h1>
           <p>
